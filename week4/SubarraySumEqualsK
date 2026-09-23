@@ -1,0 +1,33 @@
+// Week 4 - A4: Subarray Sum Equals K (prefix sums + hash map, O(n))
+import java.util.HashMap;
+import java.util.Map;
+
+public class SubarraySumEqualsK {
+
+    /*
+     * Why not a sliding window?
+     * A sliding window assumes that growing the window increases the sum and
+     * shrinking it decreases the sum. With negative numbers that is no longer
+     * true, so we can't decide which way to move the window.
+     */
+    static int subarraySum(int[] nums, int k) {
+        Map<Integer, Integer> prefixCount = new HashMap<>();
+        prefixCount.put(0, 1);   // the "empty prefix" base case
+
+        int currentSum = 0;
+        int count = 0;
+
+        for (int num : nums) {
+            currentSum += num;
+            // how many earlier prefixes make (currentSum - earlier) == k ?
+            count += prefixCount.getOrDefault(currentSum - k, 0);
+            prefixCount.put(currentSum, prefixCount.getOrDefault(currentSum, 0) + 1);
+        }
+        return count;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(subarraySum(new int[]{1, 1, 1}, 2));
+        System.out.println(subarraySum(new int[]{1, -1, 0}, 0));
+    }
+}
