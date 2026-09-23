@@ -1,0 +1,39 @@
+// Week 7 - Problem 4: The Traffic Light
+public class TrafficLightDemo {
+    public static void main(String[] args) {
+        TrafficLight t = new TrafficLight("TL-9");
+
+        System.out.println("Light " + t.getId());
+        System.out.println("t.getColor() -> " + t.getColor());
+        System.out.println("t.next()     -> " + t.next());
+        System.out.println("t.next()     -> " + t.next());
+        System.out.println("t.next()     -> " + t.next());
+        System.out.println("t.next()     -> " + t.next());
+    }
+}
+
+class TrafficLight {
+    private static final String[] CYCLE = {"RED", "GREEN", "YELLOW"};
+
+    private final String id;
+    private int colorIndex;   // position in CYCLE — only next() changes it
+
+    public TrafficLight(String id) {
+        this.id = id;
+        this.colorIndex = 0;  // every new light starts on RED
+    }
+
+    // the ONLY way to change the color: move one step forward
+    public String next() {
+        colorIndex = (colorIndex + 1) % CYCLE.length;
+        return CYCLE[colorIndex];
+    }
+
+    public String getColor() {
+        return CYCLE[colorIndex];
+    }
+
+    public String getId() {
+        return id;
+    }
+}

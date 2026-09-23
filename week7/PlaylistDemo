@@ -1,0 +1,45 @@
+// Week 7 - Problem 2: The Playlist
+import java.util.Arrays;
+
+public class PlaylistDemo {
+    public static void main(String[] args) {
+        Playlist p = new Playlist(10);
+        p.addSong("Song A");
+        p.addSong("Song B");
+
+        String[] copy = p.getSongs();
+        copy[0] = "Hacked";   // only changes the copy
+
+        System.out.println("Copy we changed : " + Arrays.toString(copy));
+        System.out.println("Real playlist   : " + Arrays.toString(p.getSongs()));
+        System.out.println("p.getSongs()[0] : " + p.getSongs()[0]);
+        System.out.println("Song count      : " + p.getSongCount());
+    }
+}
+
+class Playlist {
+    private final String[] songs;
+    private int count = 0;
+
+    public Playlist(int maxSize) {
+        songs = new String[maxSize];
+    }
+
+    public void addSong(String title) {
+        if (count == songs.length) {
+            System.out.println("Playlist is full, cannot add: " + title);
+            return;
+        }
+        songs[count] = title;
+        count++;
+    }
+
+    // returns a NEW array with only the added songs — never the private one
+    public String[] getSongs() {
+        return Arrays.copyOf(songs, count);
+    }
+
+    public int getSongCount() {
+        return count;
+    }
+}
