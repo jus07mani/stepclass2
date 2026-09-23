@@ -1,0 +1,49 @@
+// Week 2 - Problem 4: Library ISBN Normalizer & Validator
+public class IsbnValidator {
+
+    // Stage 1: trim spaces, uppercase only the first 3 characters
+    static String normalizeCode(String raw) {
+        String code = raw.trim();
+        if (code.length() < 3) {
+            return code.toUpperCase();
+        }
+        return code.substring(0, 3).toUpperCase() + code.substring(3);
+    }
+
+    // Stage 2: validate, then format with StringBuilder
+    static String validateAndFormat(String code) {
+        if (code.length() != 13) {
+            return "Invalid: code must be exactly 13 characters";
+        }
+
+        for (int i = 0; i < 3; i++) {
+            if (!Character.isLetter(code.charAt(i))) {
+                return "Invalid: publisher code must be 3 letters";
+            }
+        }
+
+        for (int i = 3; i < 13; i++) {
+            if (!Character.isDigit(code.charAt(i))) {
+                return "Invalid: year and catalog number must be digits";
+            }
+        }
+
+        String pubCode = code.substring(0, 3);
+        String year = code.substring(3, 7);
+        String catalog = code.substring(7);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("[").append(pubCode).append("] ")
+          .append("YEAR: ").append(year)
+          .append(" | CATALOG: ").append(catalog);
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        String[] inputs = {" pen2026004251 ", "12N2026004251"};
+        for (String raw : inputs) {
+            String normalized = normalizeCode(raw);
+            System.out.println(validateAndFormat(normalized));
+        }
+    }
+}
