@@ -1,0 +1,19 @@
+// Week 3 - L5: Counting Objects With a Static Field
+public class OrderCounterDemo {
+    public static void main(String[] args) {
+        new Order();
+        new Order();
+        new Order();
+        new Order();
+
+        System.out.println("Total orders: " + Order.totalOrders);
+    }
+}
+
+class Order {
+    static int totalOrders = 0;
+
+    public Order() {
+        totalOrders++;
+    }
+}

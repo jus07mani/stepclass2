@@ -1,0 +1,16 @@
+// Week 3 - L3: Reading Java's Default Field Values
+public class DefaultValuesDemo {
+    public static void main(String[] args) {
+        Employee emp = new Employee();   // no fields set
+
+        System.out.println("Name: " + emp.empName);
+        System.out.println("Salary: " + emp.salary);
+        System.out.println("Permanent: " + emp.permanent);
+    }
+}
+
+class Employee {
+    String empName;
+    double salary;
+    boolean permanent;
+}
