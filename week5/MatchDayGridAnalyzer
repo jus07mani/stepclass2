@@ -1,0 +1,44 @@
+// Week 5 - Problem 4: Match Day Grid Analyzer
+public class MatchDayGridAnalyzer {
+
+    // Helper: only computes one match's average — makes no decisions
+    private static double rowAverage(int[] row) {
+        if (row.length == 0) return 0;
+        int sum = 0;
+        for (int runs : row) {
+            sum += runs;
+        }
+        return (double) sum / row.length;
+    }
+
+    static String classifyMatches(int[][] runsPerOver, int threshold) {
+        StringBuilder result = new StringBuilder();
+
+        for (int m = 0; m < runsPerOver.length; m++) {
+            double avg = rowAverage(runsPerOver[m]);   // called once per match
+            String label = (avg >= threshold) ? "Power Surge" : "Normal";
+
+            result.append("Match ").append(m).append(": ").append(label);
+            if (m < runsPerOver.length - 1) {
+                result.append(" | ");
+            }
+        }
+        return result.toString();
+    }
+
+    public static void main(String[] args) {
+        int[][] grid = {
+            {4, 6, 8},
+            {10, 12, 14},
+            {2, 3, 1}
+        };
+        System.out.println(classifyMatches(grid, 8));
+
+        // rows of different lengths (jagged array) also work
+        int[][] jagged = {
+            {6, 10},
+            {1, 2, 3, 4, 5}
+        };
+        System.out.println(classifyMatches(jagged, 8));
+    }
+}
